@@ -1,32 +1,30 @@
 spring:
   application:
     name: ms-user
-  datasource:
-    url: ${DB_URL:jdbc:h2:mem:ms_user;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
-    driver-class-name: org.h2.Driver
-    username: ${DB_USER:sa}
-    password: ${DB_PASS:}
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
-    show-sql: false
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
 
----
-spring:
-  config:
-    activate:
-      on-profile: dev
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/ms_user}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:db_usuarios}
+    username: ${DB_USER:cordytech}
+    password: ${DB_PASS:cordytech123}
     driver-class-name: org.postgresql.Driver
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:postgres}
+
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: update        # crea/actualiza tablas automáticamente
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8081
+
+jwt:
+  secret: ${JWT_SECRET:cordytech-secret-2025}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
