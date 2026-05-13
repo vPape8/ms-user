@@ -19,4 +19,6 @@ public interface UserService {
 	UserResponseDTO update(Long id, UserRequestDTO request);
 
 	void delete(Long id);
+
+	UserResponseDTO validarLogin(String email, String password);
 }

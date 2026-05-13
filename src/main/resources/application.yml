@@ -16,7 +16,8 @@ server:
   port: 8081
 
 jwt:
-  secret: ${JWT_SECRET:cordytech-secret-2025}
+  secret: ${JWT_SECRET:EstaEsUnaLlaveSuperSecretaYMuyLargaParaCordytech2026!}
+  expiration: ${JWT_EXPIRATION:86400000}
 
 management:
   endpoints:

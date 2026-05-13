@@ -25,5 +25,5 @@ public record UserRequestDTO(
 		String password,
 		@NotNull(message = "rol es obligatorio")
 		Role rol,
-		boolean enabled) {
+		Boolean enabled) {
 }
