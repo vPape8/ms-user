@@ -71,6 +71,23 @@ public class UserServiceImpl implements UserService {
 		userRepository.delete(user);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public UserResponseDTO validarLogin(String email, String password) {
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("Credenciales inválidas"));
+
+		if (!passwordEncoder.matches(password, user.getPassword())) {
+			throw new RuntimeException("Credenciales inválidas");
+		}
+
+		if (!user.isEnabled()) {
+			throw new RuntimeException("Usuario deshabilitado");
+		}
+
+		return toResponse(user);
+	}
+
 	private User findEntityById(Long id) {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + id));
